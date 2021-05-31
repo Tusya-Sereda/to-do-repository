@@ -118,6 +118,11 @@ img.image_class:hover{
     .main_part_body{
         margin-top: 30px;
     }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
+    }
 }
 
 @media screen and (max-width: 1200px){
@@ -137,11 +142,21 @@ img.image_class:hover{
     .main_part_body{
         margin-bottom: 20px;
     }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
+    }
 }
 
 @media screen and (max-width: 820px){
     h1{
         font-size: 80px;
+    }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
     }
 }
 
@@ -157,6 +172,11 @@ img.image_class:hover{
 
     .task-container{
         width: 80%;
+    }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
     }
 }
 
@@ -175,6 +195,11 @@ img.image_class:hover{
         text-align: center;
         
     }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
+    }
 }
 
 @media screen and (max-width: 530px){
@@ -189,6 +214,11 @@ img.image_class:hover{
 
     .task-container{
         width: 90%;
+    }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
     }
 }
 
@@ -211,6 +241,11 @@ img.image_class:hover{
     }
     .task-container{
         width: 100%;
+    }
+
+    .image_container{
+        margin-right: 10px;
+        display: flex;
     }
 }
 
