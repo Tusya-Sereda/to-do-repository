@@ -65,6 +65,7 @@ input.editInput{
 .task-container{
     display: flex;
     align-items: center;
+    height: fit-content;
     justify-content: space-around;
     margin: 0 auto;
     border-radius: 30px;
@@ -76,10 +77,22 @@ input.editInput{
 }
 
 .text-task{
+    width: 70%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: 30px;
     color: black;
     margin-left: 8px;
 }
+
+.text-task:hover{
+    white-space: pre-wrap;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: break-word;
+}
+
 
 .done-text{
     color: rgba(0, 0, 0, 0.3);
