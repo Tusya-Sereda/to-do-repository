@@ -64,6 +64,7 @@ updateValue1 = (event) => {
 render = () => {
   const content = document.getElementById('content_page'); // куда мы будем добавлять наши элементы  - область content-page
   /*проходимся по всему массиву наших тасков*/
+
   
   while(content.firstChild){ //смотрим, есть ли первый дочерний элемент 
     content.removeChild(content.firstChild); // чтобы наши элементы не дублировались 
