@@ -9,17 +9,15 @@ window.onload = async function init () {
   input.addEventListener('keyup', updateValue1);
   
   // получаем данные с сервера с помощью async-await 
-  const response = await fetch('http://localhost:8000/allTasks',{
+  const response = await fetch('http://localhost:8000/allTasks', {
     method: 'GET' // только получаем данные 
   });
   
   let resultMethod = await response.json(); // переводим данные в json формат
-  // console.log('result', resultMethod);
   // перезаписываем в наш массив данные полученные с сервера
   allTasks = resultMethod.data; // data так как на сервере этот масив именуется как data 
 
-  render(); 
-  // если элементы есть прям сразу, то после того, как загрузится наша страница. Можно сразу перейти к рендеру и отобразить все наши таски 
+  render();
 }
 
 onClickButton = async () => { // при нажатии на клик 
@@ -44,7 +42,6 @@ onClickButton = async () => { // при нажатии на клик
   valueInput =''; // обнуляем значение инпута
   input.value = ''; // присваиваем значение валью инпуту - пустую строку, после записи в массив, инпут и валью обнуляются
 
-  //после каждого нажатия кнопки Add запускается функция render(), которая будет записывать наши таски
   render();
   }else{
     alert('Неа, так незя делать');
@@ -148,12 +145,27 @@ render = () => {
     container.appendChild(container_for_image); // добавление image 
     content.appendChild(container);
   });
-
-  // console.log(allTasks);
 }
 
-onChangeCheckBox = (index) => {
-  allTasks[index].isCheck = !allTasks[index].isCheck;
+onChangeCheckBox = async (index) => {
+
+  const response = await fetch('http://localhost:8000/updateTask',{
+    method: 'PATCH', // только получаем данные 
+    headers: { //так как мы отправляем данные на удалённый сервер и так как два сервера локальных, нам необходимо их обрабатывать
+      'Content-Type': 'application/json; charset=utf-8', //формат, в котором отдаём/принимаем значения формат: json, символы в формате utf-8
+      'Access-Control-Allow-Origin': '*'//разрешение на наше локальное приложение
+    },
+    body: JSON.stringify({ //основное о нашем таске
+      _id: allTasks[index]._id,
+      isCheck: !allTasks[index].isCheck,
+      text: allTasks[index].text
+    })
+  });
+  let resultMethod = await response.json(); // переводим данные в json формат
+  // перезаписываем в наш массив данные полученные с сервера
+  allTasks[index] = resultMethod.data[0]; // data так как на сервере этот масив именуется как data 
+  // render(); // запускаю свою же функцию, которая удаляет елемент 
+  console.log(allTasks);
   render();
 }
 
@@ -176,8 +188,6 @@ onClickImageDelete = async (index) => {
   });
   
   let resultMethod = await response.json(); // переводим данные в json формат
-  // resultMethod.splice(index, 1);
-  // console.log('result', resultMethod);
   // перезаписываем в наш массив данные полученные с сервера
   allTasks = resultMethod.data; // data так как на сервере этот масив именуется как data 
   render(); // запускаю свою же функцию, которая удаляет елемент 
