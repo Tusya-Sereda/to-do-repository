@@ -9,8 +9,7 @@ const { Schema } = mongoose; // через таблицы мы работаем 
 //создаём свою схему, как на клиентской стороне 
 const taskScheme = new Schema ({
     text: String,
-    isCheck: Boolean,
-    id: Number
+    isCheck: Boolean
 })
 
 const uri = "mongodb+srv://Natalia_25:nata2502@db-for-to-do.rwdqq.mongodb.net/DB-For-To-DO?retryWrites=true&w=majority";
@@ -35,17 +34,15 @@ app.post('/createTask', (req, res) => { // сохрняем задачу в БД
 });
 
 app.patch('/updateTask', (req, res) => { //обновление данных  
-    Task.updateOne({_id: req.body._id}, req.body).then(result => {
-        console.log(req.body)
+    Task.updateOne({_id: req.body._id}, {isCheck: req.body.isCheck, text: req.body.text}).then(result => {
         Task.find({_id: req.body._id}).then(result => {
-            res.send({data: result});
+            res.send({data:result});
         })
     })
-    res.send('Success patch /');
 })
 
 app.delete('/deleteTask', (req, res) => { //как get запрос: присылаем body и id элементов
-    Task.deleteOne({_id: req.body._id}).then(result => {
+    Task.deleteOne({ _id: req.body._id }).then(result => {
         Task.find().then (result => {
         res.send({data: result});  
         })

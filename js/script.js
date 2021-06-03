@@ -24,9 +24,8 @@ window.onload = async function init () {
 
 onClickButton = async () => { // при нажатии на клик 
   
-  if(valueInput){
-    // получаем данные с сервера с помощью async-await 
-    const response = await fetch('http://localhost:8000/createTask',{
+  if(valueInput){ // получаем данные с сервера с помощью async-await 
+    const response = await fetch('http://localhost:8000/createTask', {
     method: 'POST', // меняем метод на POST, то есть, добавление задачи на сервер
     headers: { //так как мы отправляем данные на удалённый сервер и так как два сервера локальных, нам необходимо их обрабатывать
       'Content-Type': 'application/json; charset=utf-8', //формат, в котором отдаём/принимаем значения формат: json, символы в формате utf-8
@@ -39,17 +38,14 @@ onClickButton = async () => { // при нажатии на клик
   });
   
   let resultMethod = await response.json(); // переводим данные в json формат
-  // console.log('result', resultMethod);
   // перезаписываем в наш массив данные полученные с сервера
-  // console.log(resultMethod)
   allTasks.push(resultMethod);
 
   valueInput =''; // обнуляем значение инпута
   input.value = ''; // присваиваем значение валью инпуту - пустую строку, после записи в массив, инпут и валью обнуляются
 
   //после каждого нажатия кнопки Add запускается функция render(), которая будет записывать наши таски
-  render(); //будет отображать все наши элементы
-
+  render();
   }else{
     alert('Неа, так незя делать');
     return;
@@ -192,10 +188,9 @@ onClickImageBack = (index) => {
   render();
 }
 
-onClickImageCheck = async (digit, index) => {
-  indexEdit = null;
-  //получаем данные с сервера 
+onClickImageCheck = async (value, index) => {
   
+  //получаем данные с сервера  
   const response = await fetch('http://localhost:8000/updateTask',{
     method: 'PATCH', // меняем метод на POST, то есть, добавление задачи на сервер
     headers: { //так как мы отправляем данные на удалённый сервер и так как два сервера локальных, нам необходимо их обрабатывать
@@ -203,18 +198,17 @@ onClickImageCheck = async (digit, index) => {
       'Access-Control-Allow-Origin': '*'//разрешение на наше локальное приложение
     },
     body: JSON.stringify({ 
-      text: digit,
-      isCheck: allTasks[index].isCheck,
+      text: value,
+      isCheck: false,
       _id: allTasks[index]._id
     })
   });
 
-  // let resultMethod = await response.json(); // переводим данные в json формат
-  allTasks[index].text = digit;
-  console.log(allTasks[index].data)
+  let resultMethod = await response.json(); // переводим данные в json формат
+  allTasks[index] = resultMethod.data[0];
   indexEdit = null;
 
   render();
-}
+};
 
 
