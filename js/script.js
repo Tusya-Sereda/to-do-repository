@@ -22,7 +22,7 @@ window.onload = async function init () {
 
 onClickButton = async () => { // при нажатии на клик 
   
-  if(valueInput){ // получаем данные с сервера с помощью async-await 
+  if (valueInput) { // получаем данные с сервера с помощью async-await 
     const response = await fetch('http://localhost:8000/createTask', {
     method: 'POST', // меняем метод на POST, то есть, добавление задачи на сервер
     headers: { //так как мы отправляем данные на удалённый сервер и так как два сервера локальных, нам необходимо их обрабатывать
@@ -43,7 +43,7 @@ onClickButton = async () => { // при нажатии на клик
   input.value = ''; // присваиваем значение валью инпуту - пустую строку, после записи в массив, инпут и валью обнуляются
 
   render();
-  }else{
+  } else {
     alert('Неа, так незя делать');
     return;
   }
@@ -122,7 +122,7 @@ render = () => {
       text.className = item.isCheck ? 'text-task done-text': 'text-task';
       container.appendChild(text); 
       
-      if(!item.isCheck){
+      if (!item.isCheck) {
         const imageEdit = document.createElement('img');
         container_for_image.appendChild(imageEdit);
         imageEdit.src = '/images/edit.svg';
@@ -149,6 +149,7 @@ render = () => {
 }
 
 onChangeCheckBox = async (index) => {
+  const {text, isCheck, _id} = allTasks[index];
 
   const response = await fetch('http://localhost:8000/updateTask',{
     method: 'PATCH', // только получаем данные 
@@ -157,16 +158,16 @@ onChangeCheckBox = async (index) => {
       'Access-Control-Allow-Origin': '*'//разрешение на наше локальное приложение
     },
     body: JSON.stringify({ //основное о нашем таске
-      _id: allTasks[index]._id,
-      isCheck: !allTasks[index].isCheck,
-      text: allTasks[index].text
+      _id: _id,
+      isCheck: !isCheck,
+      text: text
     })
   });
+
   let resultMethod = await response.json(); // переводим данные в json формат
   // перезаписываем в наш массив данные полученные с сервера
   allTasks[index] = resultMethod.data[0]; // data так как на сервере этот масив именуется как data 
   // render(); // запускаю свою же функцию, которая удаляет елемент 
-  console.log(allTasks);
   render();
 }
 
