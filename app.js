@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require("mongoose"); //импорт библиотеки
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 

@@ -56,7 +56,7 @@ updateValue = (event) => { // в функцию получаем какое-то
 
 /*При нажатии на ENTER*/
 updateValue1 = (event) => {
-  if(event.keyCode === 13){
+  if (event.keyCode === 13) {
     onClickButton();
   }
 }
@@ -66,7 +66,7 @@ render = () => {
   /*проходимся по всему массиву наших тасков*/
 
   
-  while(content.firstChild){ //смотрим, есть ли первый дочерний элемент 
+  while (content.firstChild) { //смотрим, есть ли первый дочерний элемент 
     content.removeChild(content.firstChild); // чтобы наши элементы не дублировались 
   }
   
@@ -81,7 +81,7 @@ render = () => {
     container_for_image.className = 'image_container';
     
     //Добавление текст в контейнер таска
-    if(index === indexEdit){
+    if (index === indexEdit) {
 
       const input = document.createElement('input');
       input.className = 'editInput';
